@@ -1,0 +1,68 @@
+class ComplexNumber {
+    private double real;
+    private double imaginary;
+
+    // Constructor to initialize the complex number
+    public ComplexNumber(double real, double imaginary) {
+        this.real = real;
+        this.imaginary = imaginary;
+    }
+
+    // Getter for the real part
+    public double getReal() {
+        return real;
+    }
+
+    // Getter for the imaginary part
+    public double getImaginary() {
+        return imaginary;
+    }
+
+    // Method to add another complex number
+    public ComplexNumber add(double otherReal, double otherImaginary) {
+        double newReal = this.real + otherReal;
+        double newImaginary = this.imaginary + otherImaginary;
+        return new ComplexNumber(newReal, newImaginary);
+    }
+
+    // Method to subtract another complex number
+    public ComplexNumber subtract(double otherReal, double otherImaginary) {
+        double newReal = this.real - otherReal;
+        double newImaginary = this.imaginary - otherImaginary;
+        return new ComplexNumber(newReal, newImaginary);
+    }
+
+    // Method to compare another complex number
+    public boolean equals(double otherReal, double otherImaginary) {
+        return this.real == otherReal && this.imaginary == otherImaginary;
+    }
+
+    // Method to display the complex number
+    public void display() {
+        System.out.println("Complex Number: " + this.real + " + " + this.imaginary + "i");
+    }
+}
+
+public class ComplexNumberOperations {
+    public static void main(String[] args) {
+        // Creating complex numbers
+        ComplexNumber complex1 = new ComplexNumber(2.5, 3.0);
+
+        // Performing addition
+        ComplexNumber sum = complex1.add(1.5, 2.0);
+        System.out.print("Addition: ");
+        sum.display();
+
+        // Performing subtraction
+        ComplexNumber difference = complex1.subtract(1.5, 2.0);
+        System.out.print("Subtraction: ");
+        difference.display();
+
+        // Comparing complex numbers
+        if (complex1.equals(1.5, 2.0)) {
+            System.out.println("Complex numbers are equal.");
+        } else {
+            System.out.println("Complex numbers are not equal.");
+        }
+    }
+}
