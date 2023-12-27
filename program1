@@ -1,0 +1,67 @@
+import java.util.Scanner;
+
+class Main{
+    public static double calculateRectangleArea(double length, double breadth) {
+        double area = length * breadth;
+        return area;
+    }
+    public static int[] multiplyarray(int[] a1,int[] a2,int size){
+        int[] a3 = new int[size];
+        for(int i=0;i<size;i++){
+            a3[i] = a1[i] * a2[i];
+        }
+        return a3;
+    }
+    public static int[] sortarray(int a1[]){
+        int n = a1.length;
+        boolean swapped = true;
+        while(swapped){
+            swapped = false;
+            for(int i=1;i<n;i++){
+                if(a1[i-1]>a1[i]){
+                    int temp = a1[i-1];
+                    a1[i-1] = a1[i];
+                    a1[i] = temp;
+                    
+                    swapped = true;
+                }
+            }
+            n--;
+        }
+        return a1;
+    }
+
+    public static void main(String[] args) {
+        Scanner myobj = new Scanner(System.in);
+        System.out.print("Enter the length: ");
+        double length = myobj.nextDouble();
+        System.out.print("Enter the width: ");
+        double width = myobj.nextDouble();
+        
+        double area = calculateRectangleArea(length, width);
+        System.out.println("The area of the rectangle is: " + area);
+        
+        System.out.print("Enter the size of array :");
+        int size = myobj.nextInt();
+        int[] a1 = new int[size];
+        int[] a2 = new int[size];
+        System.out.print("Enter the elements of first array :");
+        for(int i=0;i<size;i++){
+            a1[i] = myobj.nextInt();
+        }
+        System.out.print("Enter the elements of second array :");
+        for(int j=0;j<size;j++){
+            a2[j] = myobj.nextInt();
+        }
+        int[] result = multiplyarray(a1,a2,size);
+        for(int i=0;i<size;i++){
+            System.out.print(result[i]+",");
+        }
+        System.out.print("\n");
+        int[] ans = sortarray(a1);
+        for(int k=0;k<size;k++){
+            System.out.print(ans[k]+" ,");
+        }
+        
+    }
+}
