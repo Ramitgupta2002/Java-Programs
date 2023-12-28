@@ -1,41 +1,28 @@
 import java.util.Scanner;
+import java.util.InputMismatchException;
 
-public class DivisionProgram {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-
-        try {
-            // Read the numerator
-            System.out.print("Enter the numerator (positive integer): ");
-            int numerator = scanner.nextInt();
-
-            // Read the denominator
-            System.out.print("Enter the denominator (positive integer, non-zero): ");
-            int denominator = scanner.nextInt();
-
-            // Check if the input is positive
-            if (numerator < 0 || denominator <= 0) {
-                throw new IllegalArgumentException("Input should be positive integers, and denominator should be non-zero.");
+class Main{
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        try{
+            System.out.print("Enter the numerator(positive integer) ");
+            int numerator = sc.nextInt();
+            
+            if(numerator<=0){
+                throw new InputMismatchException("Numerator must be positive :");
             }
-
-            // Perform the division
-            double result = (double) numerator / denominator;
-
-            // Display the result
-            System.out.println("Result of division: " + result);
-
-        } catch (java.util.InputMismatchException e) {
-            // Handle invalid input (non-integer input)
-            System.out.println("Invalid input. Please enter positive integers.");
-        } catch (IllegalArgumentException e) {
-            // Handle invalid input (negative or zero denominator)
-            System.out.println(e.getMessage());
-        } catch (ArithmeticException e) {
-            // Handle division by zero
-            System.out.println("Error: Division by zero is not allowed.");
-        } finally {
-            // Close the Scanner
-            scanner.close();
+            
+            System.out.print("Enter the denominator(non-zero)");
+            int denominator = sc.nextInt();
+            
+            if(denominator==0 || denominator<=0){
+                throw new ArithmeticException("Denominator cannot be zero or negative");
+            }
+            double result = (double) numerator/denominator;
+            System.out.println("result of division is :"+result);
+        }
+        catch(InputMismatchException | ArithmeticException e){
+            System.err.println("Error :"+e.getMessage());
         }
     }
 }
