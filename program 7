@@ -1,94 +1,81 @@
-import java.util.LinkedList;
-import java.util.Queue;
-
-class SharedBuffer {
-    private final int capacity;
-    private final Queue<Integer> buffer;
-
-    public SharedBuffer(int capacity) {
-        this.capacity = capacity;
-        this.buffer = new LinkedList<>();
+class SharedBuffer{
+    private int[] buffer;
+    private int size;
+    private int count;
+    
+    public SharedBuffer(int size){
+        this.size = size;
+        this.buffer = new int[size];
+        this.count = 0;
     }
-
-    public synchronized void produce(int item) throws InterruptedException {
-        while (buffer.size() == capacity) {
-            // Buffer is full, wait for the consumer to consume
+    
+    public synchronized void produce(int item) throws InterruptedException{
+        while(count == size){
             wait();
         }
-
-        buffer.add(item);
-        System.out.println("Produced: " + item);
-
-        // Notify the consumer that an item is available
+        buffer[count++] = item;
+        System.out.println("Produced :"+item);
         notify();
     }
-
-    public synchronized int consume() throws InterruptedException {
-        while (buffer.isEmpty()) {
-            // Buffer is empty, wait for the producer to produce
+    
+    public synchronized int consume() throws InterruptedException{
+        while(count==0){
             wait();
         }
-
-        int item = buffer.poll();
-        System.out.println("Consumed: " + item);
-
-        // Notify the producer that space is available in the buffer
+        int item = buffer[--count];
+        System.out.println("Consumed :"+item);
         notify();
-
+        
         return item;
     }
 }
 
-class Producer extends Thread {
-    private final SharedBuffer buffer;
-
-    public Producer(SharedBuffer buffer) {
+class Producer implements Runnable{
+    private SharedBuffer buffer;
+    
+    public Producer(SharedBuffer buffer){
         this.buffer = buffer;
     }
-
     @Override
-    public void run() {
-        for (int i = 1; i <= 5; i++) {
-            try {
+    public void run(){
+        try{
+            for(int i=1;i<=5;i++){
                 buffer.produce(i);
-                Thread.sleep(1000); // Simulate some time taken to produce an item
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+                Thread.sleep(1000);
             }
+        }catch(InterruptedException e){
+            e.printStackTrace();
         }
     }
 }
 
-class Consumer extends Thread {
-    private final SharedBuffer buffer;
-
-    public Consumer(SharedBuffer buffer) {
+class Consumer implements Runnable{
+    private SharedBuffer buffer;
+    
+    public Consumer(SharedBuffer buffer){
         this.buffer = buffer;
     }
-
     @Override
-    public void run() {
-        for (int i = 1; i <= 5; i++) {
-            try {
-                int item = buffer.consume();
-                Thread.sleep(1500); // Simulate some time taken to consume an item
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+    public void run(){
+        try{
+            for(int i=1;i<=5;i++){
+                buffer.consume();
+                Thread.sleep(1500);
             }
+        }catch(InterruptedException e){
+            e.printStackTrace();
         }
     }
 }
 
-public class Main {
-    public static void main(String[] args) {
-        SharedBuffer buffer = new SharedBuffer(3); // Buffer with a capacity of 3
-
-        // Create producer and consumer threads
-        Producer producer = new Producer(buffer);
-        Consumer consumer = new Consumer(buffer);
-
-        // Start the threads
-        producer.start();
-        consumer.start();
+public class Main{
+    public static void main(String[] args){
+        SharedBuffer buffer = new SharedBuffer(3);
+        
+        Thread producerThread = new Thread(new Producer(buffer));
+        Thread consumerThread = new Thread(new Consumer(buffer));
+        
+        producerThread.start();
+        consumerThread.start();
     }
 }
