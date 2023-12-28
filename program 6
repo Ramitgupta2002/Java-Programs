@@ -1,0 +1,70 @@
+import java.util.Scanner;
+
+abstract class Bank{
+    protected String name;
+    protected long accountNumber;
+    protected double balance;
+    
+    void readDetails(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter Name :");
+        name = scanner.nextLine();
+        System.out.print("Enter the accountNumber :");
+        accountNumber = scanner.nextLong();
+        System.out.print("Enter the account balance :");
+        balance = scanner.nextDouble();
+    }
+    void display(){
+        System.out.println("Name :"+name);
+        System.out.println("AccountNumber :"+accountNumber);
+        System.out.println("AccountBalance :"+balance);
+    }
+    abstract void calculateInterest();
+}
+
+class CityBank extends Bank{
+    void calculateInterest(){
+        double rate = 0.05;
+        double interest = balance*rate;
+        System.out.println("Interest earned at CityBank :"+interest);
+    }
+}
+
+class SBI extends Bank{
+    void calculateInterest(){
+        double rate = 0.06;
+        double interest = balance*rate;
+        System.out.println("Interest earned at SBI :"+interest);
+    }
+}
+
+class CanaraBank extends Bank{
+    void calculateInterest(){
+        double rate = 0.04;
+        double interest = balance*rate;
+        System.out.println("Interest earned at CanaraBank :"+interest);
+    }
+}
+
+public class Main{
+    public static void main(String[] args){
+        CityBank citybank = new CityBank();
+        SBI sbi = new SBI();
+        CanaraBank canarabank = new CanaraBank();
+        
+        System.out.println("Enter the details for citybank account :");
+        citybank.readDetails();
+        citybank.display();
+        citybank.calculateInterest();
+        
+        System.out.println("Enter the details for sbi account :");
+        sbi.readDetails();
+        sbi.display();
+        sbi.calculateInterest();
+        
+        System.out.println("Enter the details for canara bank account :");
+        canarabank.readDetails();
+        canarabank.display();
+        canarabank.calculateInterest();
+    }
+}
