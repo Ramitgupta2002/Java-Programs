@@ -1,68 +1,81 @@
-class ComplexNumber {
-    private double real;
-    private double imaginary;
-
-    // Constructor to initialize the complex number
-    public ComplexNumber(double real, double imaginary) {
-        this.real = real;
-        this.imaginary = imaginary;
-    }
-
-    // Getter for the real part
-    public double getReal() {
-        return real;
-    }
-
-    // Getter for the imaginary part
-    public double getImaginary() {
-        return imaginary;
-    }
-
-    // Method to add another complex number
-    public ComplexNumber add(double otherReal, double otherImaginary) {
-        double newReal = this.real + otherReal;
-        double newImaginary = this.imaginary + otherImaginary;
-        return new ComplexNumber(newReal, newImaginary);
-    }
-
-    // Method to subtract another complex number
-    public ComplexNumber subtract(double otherReal, double otherImaginary) {
-        double newReal = this.real - otherReal;
-        double newImaginary = this.imaginary - otherImaginary;
-        return new ComplexNumber(newReal, newImaginary);
-    }
-
-    // Method to compare another complex number
-    public boolean equals(double otherReal, double otherImaginary) {
-        return this.real == otherReal && this.imaginary == otherImaginary;
-    }
-
-    // Method to display the complex number
-    public void display() {
-        System.out.println("Complex Number: " + this.real + " + " + this.imaginary + "i");
-    }
+import java.util.Scanner;
+class ComplexNumber
+{
+private double real;
+private double imaginary;
+public ComplexNumber(double real, double imaginary)
+{
+this.real = real;
+this.imaginary = imaginary;
 }
-
-public class ComplexNumberOperations {
-    public static void main(String[] args) {
-        // Creating complex numbers
-        ComplexNumber complex1 = new ComplexNumber(2.5, 3.0);
-
-        // Performing addition
-        ComplexNumber sum = complex1.add(1.5, 2.0);
-        System.out.print("Addition: ");
-        sum.display();
-
-        // Performing subtraction
-        ComplexNumber difference = complex1.subtract(1.5, 2.0);
-        System.out.print("Subtraction: ");
-        difference.display();
-
-        // Comparing complex numbers
-        if (complex1.equals(1.5, 2.0)) {
-            System.out.println("Complex numbers are equal.");
-        } else {
-            System.out.println("Complex numbers are not equal.");
-        }
-    }
+public ComplexNumber add(ComplexNumber other)
+{
+double t1 = this.real + other.real;
+double t2 = this.imaginary + other.imaginary;
+return new ComplexNumber(t1, t2);
+}
+public ComplexNumber subtract(ComplexNumber other)
+{
+double t1 = this.real - other.real;
+double t2 = this.imaginary - other.imaginary;
+return new ComplexNumber(t1, t2);
+}
+public void increment()
+{
+this.real++;
+this.imaginary++;
+}
+public void decrement()
+{
+this.real--;
+this.imaginary--;
+}
+public boolean isEqual(ComplexNumber other)
+{
+return this.real == other.real && this.imaginary == other.imaginary;
+}
+public void display()
+{
+System.out.println(this.real + " + " + this.imaginary + "i");
+}
+}
+public class Encapsulation
+{
+public static void main(String[] args)
+{
+Scanner scanner = new Scanner(System.in);
+System.out.print("Enter the real and imaginary part of first Complex Number: ");
+double r1 = scanner.nextDouble();
+double i1 = scanner.nextDouble();
+System.out.print("Enter the real and imaginary part of second Complex Number: ");
+double r2 = scanner.nextDouble();
+double i2 = scanner.nextDouble();
+ComplexNumber complex1 = new ComplexNumber(r1, i1);
+ComplexNumber complex2 = new ComplexNumber(r2, i2);
+System.out.println("The two complex numbers are: ");
+complex1.display();
+complex2.display();
+System.out.println("The sum of both complex numbers is: ");
+ComplexNumber sum = complex1.add(complex2);
+sum.display();
+System.out.println("The difference of both complex numbers is: ");
+ComplexNumber diff = complex1.subtract(complex2);
+diff.display();
+System.out.println("Incrementation of first complex numbers is: ");
+complex1.increment();
+complex1.display();
+System.out.println("Decrementation of second complex numbers is: ");
+complex2.decrement();
+complex2.display();
+boolean val = complex1.isEqual(complex2);
+if(val == true)
+{
+System.out.println("The 2 complex numbers are equal");
+}
+else
+{
+System.out.println("The 2 complex numbers are not equal");
+}
+System.out.println();
+}
 }
