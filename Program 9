@@ -1,0 +1,49 @@
+import java.util.Scanner;
+
+interface Computer{
+    void convert();
+}
+
+class StorageConverter implements Computer{
+    private double kilobytes;
+    
+    public StorageConverter(double kilobytes){
+        this.kilobytes = kilobytes;
+    }
+    @Override
+    public void convert(){
+        double gigabytes = kilobytes/(1024*1024);
+        System.out.println(kilobytes + "Kilobytes is equal to :"+gigabytes+" Gigabytes");
+    }
+}
+
+class CurrencyConverter implements Computer{
+    private double euros;
+    
+    public CurrencyConverter(double euros){
+        this.euros = euros;
+    }
+    @Override
+    public void convert(){
+        double rupees = euros*90;
+        System.out.println(euros+" Euros is equal to "+rupees+" Rupees");
+    }
+}
+
+public class Main{
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        
+        System.out.print("Enter the number of kilobytes :");
+        double kilobyte = sc.nextDouble();
+        StorageConverter storageconverter = new StorageConverter(kilobyte);
+        System.out.println("Storage Conversion :");
+        storageconverter.convert();
+        
+        System.out.print("Enter the no.of euros :");
+        double euros = sc.nextDouble();
+        CurrencyConverter currencyconverter = new CurrencyConverter(euros);
+        System.out.println("Currency conversion is :");
+        currencyconverter.convert();
+    }
+}
