@@ -1,0 +1,104 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+class Person {
+    String name;
+    int age;
+    String gender;
+
+    public Person(String name, int age, String gender) {
+        this.name = name;
+        this.age = age;
+        this.gender = gender;
+    }
+
+    void display() {
+        System.out.println("Name: " + name);
+        System.out.println("Age: " + age);
+        System.out.println("Gender: " + gender);
+    }
+}
+
+class Employee extends Person {
+    String Empid;
+
+    public Employee(String name, int age, String gender, String Empid) {
+        super(name, age, gender);
+        this.Empid = Empid;
+    }
+
+    @Override
+    void display() {
+        super.display();
+        System.out.println("Employee ID: " + Empid);
+    }
+}
+
+class Student extends Person {
+    String Stdid;
+
+    public Student(String name, int age, String gender, String Stdid) {
+        super(name, age, gender);
+        this.Stdid = Stdid;
+    }
+
+    @Override
+    void display() {
+        super.display();
+        System.out.println("Student ID: " + Stdid);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        List<Employee> employees = new ArrayList<>();
+        List<Student> students = new ArrayList<>();
+
+        for (int i = 0; i < 5; i++) {
+            System.out.println("Enter the details of Employee " + (i + 1));
+            System.out.print("Enter the name: ");
+            String name = sc.nextLine();
+            System.out.print("Enter the age: ");
+            int age = sc.nextInt();
+            sc.nextLine(); // Consume the newline character
+            System.out.print("Enter the gender: ");
+            String gender = sc.nextLine();
+            System.out.print("Enter the Employee ID: ");
+            String empid = sc.nextLine();
+
+            employees.add(new Employee(name, age, gender, empid));
+        }
+
+        for (int i = 0; i < 5; i++) {
+            System.out.println("Enter the details of Student " + (i + 1));
+            System.out.print("Enter the name: ");
+            String name = sc.nextLine();
+            System.out.print("Enter the age: ");
+            int age = sc.nextInt();
+            sc.nextLine(); // Consume the newline character
+            System.out.print("Enter the gender: ");
+            String gender = sc.nextLine();
+            System.out.print("Enter the Student ID: ");
+            String stdid = sc.nextLine();
+
+            students.add(new Student(name, age, gender, stdid));
+        }
+
+        System.out.println("The details of employees are:");
+        for (Employee employee : employees) {
+            employee.display();
+            System.out.println("---------------");
+        }
+
+        System.out.println("The details of students are:");
+        for (Student student : students) {
+            student.display();
+            System.out.println("---------------");
+        }
+
+        sc.close();
+    }
+}
