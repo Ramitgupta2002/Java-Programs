@@ -1,87 +1,52 @@
-import java.util.Scanner;
-
-class ComplexNumber {
+class ComplexNumber{
     private double real;
     private double imaginary;
-
-    public ComplexNumber(double real, double imaginary) {
+    
+    public ComplexNumber(double real,double imaginary){
         this.real = real;
         this.imaginary = imaginary;
     }
-
-    public ComplexNumber add(ComplexNumber other) {
-        double t1 = this.real + other.real;
-        double t2 = this.imaginary + other.imaginary;
-        return new ComplexNumber(t1, t2);
+    
+    public double getReal(){
+        return real;
     }
-
-    public ComplexNumber subtract(ComplexNumber other) {
-        double t1 = this.real - other.real;
-        double t2 = this.imaginary - other.imaginary;
-        return new ComplexNumber(t1, t2);
+    public double getImag(){
+        return imaginary;
     }
-
-    public void increment() {
-        this.real++;
-        this.imaginary++;
+    
+    public ComplexNumber add(ComplexNumber other){
+        double newReal = this.real + other.real;
+        double newImag = this.imaginary + other.imaginary;
+        return new ComplexNumber(newReal,newImag); 
     }
-
-    public void decrement() {
-        this.real--;
-        this.imaginary--;
+    
+    public ComplexNumber sub(ComplexNumber other){
+        double newReal = this.real-other.real;
+        double newImag = this.imaginary-other.imaginary;
+        return new ComplexNumber(newReal,newImag);
     }
-
-    public boolean isEqual(ComplexNumber other) {
-        return this.real == other.real && this.imaginary == other.imaginary;
-    }
-
-    public void display() {
-        System.out.println(this.real + " + " + this.imaginary + "i");
+    
+    public boolean equals(ComplexNumber other){
+        return this.real==other.real && this.imaginary==other.imaginary;
     }
 }
 
-public class Encapsulation {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.print("Enter the real and imaginary part of first Complex Number: ");
-        double r1 = scanner.nextDouble();
-        double i1 = scanner.nextDouble();
-
-        System.out.print("Enter the real and imaginary part of second Complex Number: ");
-        double r2 = scanner.nextDouble();
-        double i2 = scanner.nextDouble();
-
-        ComplexNumber complex1 = new ComplexNumber(r1, i1);
-        ComplexNumber complex2 = new ComplexNumber(r2, i2);
-
-        System.out.println("The two complex numbers are: ");
-        complex1.display();
-        complex2.display();
-
-        System.out.println("The sum of both complex numbers is: ");
-        ComplexNumber sum = complex1.add(complex2);
-        sum.display();
-
-        System.out.println("The difference of both complex numbers is: ");
-        ComplexNumber diff = complex1.subtract(complex2);
-        diff.display();
-
-        System.out.println("Incrementation of first complex numbers is: ");
-        complex1.increment();
-        complex1.display();
-
-        System.out.println("Decrementation of second complex numbers is: ");
-        complex2.decrement();
-        complex2.display();
-
-        boolean val = complex1.isEqual(complex2);
-        if (val) {
-            System.out.println("The 2 complex numbers are equal");
-        } else {
-            System.out.println("The 2 complex numbers are not equal");
+public class Main{
+    public static void main(String[] args){
+        ComplexNumber complex1 = new ComplexNumber(1.5,2.5);
+        ComplexNumber complex2 = new ComplexNumber(0.5,0.5);
+        
+        ComplexNumber add = complex1.add(complex2);
+        System.out.println("Sum :"+add.getReal()+" + "+add.getImag()+"i");
+        
+        ComplexNumber diff = complex1.sub(complex2);
+        System.out.println("Difference :"+diff.getReal()+" + "+diff.getImag()+"i");
+        
+        if(complex1.equals(complex2)){
+            System.out.println("equal");
         }
-
-        scanner.close();
+        else{
+            System.out.println("Not equal ");
+        }
     }
 }
