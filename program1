@@ -1,67 +1,89 @@
 import java.util.Scanner;
 
-class Main{
-    public static double calculateRectangleArea(double length, double breadth) {
-        double area = length * breadth;
-        return area;
+class Main {
+    public static void QuadSolver(double a, double b, double c) {
+        double discri = b * b - 4 * a * c;
+
+        if (discri > 0) {
+            double root1 = (-b + Math.sqrt(discri)) / (2 * a);
+            double root2 = (-b - Math.sqrt(discri)) / (2 * a);
+            System.out.println("Root 1: " + root1);
+            System.out.println("Root 2: " + root2);
+        } else if (discri == 0) {
+            double root = -b / (2 * a);
+            System.out.println("Root: " + root);
+        } else {
+            double realPart = -b / (2 * a);
+            double imaginaryPart = Math.sqrt(Math.abs(discri)) / (2 * a);
+            System.out.println("Root 1: " + realPart + " + " + imaginaryPart + "i");
+            System.out.println("Root 2: " + realPart + " - " + imaginaryPart + "i");
+        }
     }
-    public static int[] multiplyarray(int[] a1,int[] a2,int size){
+
+    public static int[] multarray(int[] a1, int[] a2, int size) {
         int[] a3 = new int[size];
-        for(int i=0;i<size;i++){
+        for (int i = 0; i < size; i++) {
             a3[i] = a1[i] * a2[i];
         }
         return a3;
     }
-    public static int[] sortarray(int a1[]){
-        int n = a1.length;
-        boolean swapped = true;
-        while(swapped){
+
+    public static int[] sortarray(int[] a, int size) {
+        boolean swapped;
+        for (int i = 0; i < size - 1; i++) {
             swapped = false;
-            for(int i=1;i<n;i++){
-                if(a1[i-1]>a1[i]){
-                    int temp = a1[i-1];
-                    a1[i-1] = a1[i];
-                    a1[i] = temp;
-                    
+            for (int j = 0; j < size - i - 1; j++) {
+                if (a[j] > a[j + 1]) {
+                    int temp = a[j];
+                    a[j] = a[j + 1];
+                    a[j + 1] = temp;
                     swapped = true;
                 }
             }
-            n--;
+            if (!swapped) {
+                break;
+            }
         }
-        return a1;
+        return a;
     }
 
     public static void main(String[] args) {
         Scanner myobj = new Scanner(System.in);
-        System.out.print("Enter the length: ");
-        double length = myobj.nextDouble();
-        System.out.print("Enter the width: ");
-        double width = myobj.nextDouble();
-        
-        double area = calculateRectangleArea(length, width);
-        System.out.println("The area of the rectangle is: " + area);
-        
-        System.out.print("Enter the size of array :");
+        System.out.println("Enter a:");
+        double a = myobj.nextDouble();
+        System.out.println("Enter b:");
+        double b = myobj.nextDouble();
+        System.out.println("Enter c:");
+        double c = myobj.nextDouble();
+        QuadSolver(a, b, c);
+
+        System.out.println("Enter the size:");
         int size = myobj.nextInt();
         int[] a1 = new int[size];
         int[] a2 = new int[size];
-        System.out.print("Enter the elements of first array :");
-        for(int i=0;i<size;i++){
+        System.out.println("Enter the first array:");
+        for (int i = 0; i < size; i++) {
             a1[i] = myobj.nextInt();
         }
-        System.out.print("Enter the elements of second array :");
-        for(int j=0;j<size;j++){
+        System.out.println("Enter the second array:");
+        for (int j = 0; j < size; j++) {
             a2[j] = myobj.nextInt();
         }
-        int[] result = multiplyarray(a1,a2,size);
-        for(int i=0;i<size;i++){
-            System.out.print(result[i]+",");
+        int[] result = multarray(a1, a2, size);
+        System.out.println("Multiplication result:");
+        for (int i = 0; i < size; i++) {
+            System.out.print(result[i] + " ");
         }
-        System.out.print("\n");
-        int[] ans = sortarray(a1);
-        for(int k=0;k<size;k++){
-            System.out.print(ans[k]+" ,");
+
+        int[] a4 = new int[5];
+        System.out.println("\nEnter the new array:");
+        for (int i = 0; i < 5; i++) {
+            a4[i] = myobj.nextInt();
         }
-        
+        int[] result1 = sortarray(a4, 5);
+        System.out.println("Sorted array:");
+        for (int i = 0; i < 5; i++) {
+            System.out.print(result1[i] + " ");
+        }
     }
 }
